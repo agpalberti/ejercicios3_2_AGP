@@ -1,7 +1,7 @@
 import kotlin.random.Random
 
 class Persona(){
-    val DNI:String
+    private val DNI:String
     private var nombre:String = ""
     private var edad:Int = 0
     private var sexo:Char = 'H'
@@ -56,7 +56,7 @@ class Persona(){
         return "Nombre: \"$nombre\", DNI: $DNI, edad: $edad, sexo: $sexo, peso: $peso, altura: $altura."
     }
 
-    fun generaDNI():String{
+    private fun generaDNI():String{
         var param = ""
         repeat(8){param += Random.nextInt(0,9)}
         param+= Random.nextInt(65,90).toChar()
