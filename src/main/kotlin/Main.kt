@@ -58,6 +58,8 @@ class Persona() {
         return edad >= 18
     }
 
+// comprobarSexo no es necesario, nunca se da esa situación debido al set.
+
     private fun comprobarSexo() {
         if (sexo != 'H' && sexo != 'M') sexo = 'H'
     }
@@ -74,7 +76,7 @@ class Persona() {
         return param
     }
 }
-
+//Devuelve un string según el int que le introduzcas, para utilizarlo junto al resultado del IMC
 fun pesoIdeal(param: Int): String {
     return when (param) {
         -1 -> "Está en su peso ideal."
@@ -84,6 +86,7 @@ fun pesoIdeal(param: Int): String {
     }
 }
 
+//Devuelve un string según si eres mayor de edad o no
 fun mayoriaEdad(param: Boolean): String {
     return if (param) "Es mayor de edad"
     else "Es menor de edad"
@@ -101,6 +104,7 @@ fun main() {
     nombre = readLine() ?: ""
 
     println("Introduce la edad.")
+    // Hago try/catch para cada variable para gestión de los posibles errores.
     try {
         edad = readLine()?.toInt() ?: 18
     } catch (_: Exception) {
