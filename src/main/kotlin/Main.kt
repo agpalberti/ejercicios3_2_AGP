@@ -1,5 +1,3 @@
-import kotlin.random.Random
-
 class Persona() {
     private val DNI: String
     private var nombre: String = ""
@@ -43,13 +41,14 @@ class Persona() {
 
     init {
         DNI = generaDNI()
+        comprobarSexo()
     }
 
     fun calcularIMC(): Int {
         return when {
             peso / (altura * altura) < 20.0 -> -1
             peso / (altura * altura) in 20.0..25.0 -> 0
-            peso / (altura * altura) > 25 -> 1
+            peso / (altura * altura) > 25.0 -> 1
             else -> 2
         }
 
@@ -59,7 +58,7 @@ class Persona() {
         return edad >= 18
     }
 
-    fun comprobarSexo() {
+    private fun comprobarSexo() {
         if (sexo != 'H' && sexo != 'M') sexo = 'H'
     }
 
@@ -76,9 +75,75 @@ class Persona() {
     }
 }
 
+fun pesoIdeal(param: Int): String {
+    return when (param) {
+        -1 -> "Está en su peso ideal."
+        0 -> "Está por debajo de su peso ideal."
+        1 -> "Tiene sobrepeso."
+        else -> "Error."
+    }
+}
+
+fun mayoriaEdad(param: Boolean): String {
+    return if (param) "Es mayor de edad"
+    else "Es menor de edad"
+}
+
 
 fun main() {
+    val nombre: String
+    val edad: Int
+    val sexo: Char
+    val peso: Float
+    val altura: Float
 
-    val yo = Persona("Alejandro", 21, 'H')
-    println(yo)
+    println("Introduce tu nombre.")
+    nombre = readLine() ?: ""
+
+    println("Introduce la edad.")
+    try {
+        edad = readLine()?.toInt() ?: 18
+    } catch (_: Exception) {
+        println("El valor introducido no es correcto.")
+        return
+    }
+
+    println("Introduce el sexo (H o M).")
+    try {
+        sexo = readLine()?.get(0) ?: '0'
+    } catch (_: Exception) {
+        println("El valor introducido no es correcto.")
+        return
+    }
+
+    println("Introduce el peso.")
+    try {
+        peso = readLine()?.toFloat() ?: 0.0F
+    } catch (_: Exception) {
+        println("El valor introducido no es correcto.")
+        return
+    }
+
+    println("Introduce la altura.")
+    try {
+        altura = readLine()?.toFloat() ?: 0.0F
+    } catch (_: Exception) {
+        println("El valor introducido no es correcto.")
+        return
+    }
+
+    val persona1 = Persona(nombre, edad, sexo, peso, altura)
+    val persona2 = Persona(nombre, edad, sexo)
+    val persona3 = Persona()
+
+    persona3
+
+    println(pesoIdeal(persona1.calcularIMC()))
+    println(pesoIdeal(persona2.calcularIMC()))
+    println(pesoIdeal(persona3.calcularIMC()))
+    println(mayoriaEdad(persona1.esMayorDeEdad()))
+    println(mayoriaEdad(persona2.esMayorDeEdad()))
+    println(mayoriaEdad(persona3.esMayorDeEdad()))
+    println("- $persona1\n- $persona2\n- $persona3")
+
 }
