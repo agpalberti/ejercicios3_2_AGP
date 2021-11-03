@@ -1,25 +1,25 @@
 class Persona() {
-    private val DNI: String
-    private var nombre: String = ""
-    private var edad: Int = 0
+    val DNI: String
+    var nombre: String = ""
+    var edad: Int = 0
         set(value) {
             if (value >= 0) field = value
             else throw IllegalArgumentException("La edad no puede ser menor a cero.")
         }
 
-    private var sexo: Char = 'H'
+    var sexo: Char = 'H'
         set(value) {
             if (value == 'H' || value == 'M') field = value
             else throw IllegalArgumentException("El sexo solo puede ser H o M.")
         }
 
-    private var peso: Float = 65.0F
+    var peso: Float = 65.0F
         set(value) {
             if (value > 0) field = value
             else throw IllegalArgumentException("El peso no puede ser menor o igual a cero.")
         }
 
-    private var altura: Float = 1.70F
+    var altura: Float = 1.70F
         set(value) {
             if (value > 0) field = value
             else throw IllegalArgumentException("La altura no puede ser menor o igual a cero.")
@@ -76,6 +76,7 @@ class Persona() {
         return param
     }
 }
+
 //Devuelve un string según el int que le introduzcas, para utilizarlo junto al resultado del IMC
 fun pesoIdeal(param: Int): String {
     return when (param) {
@@ -139,8 +140,13 @@ fun main() {
     val persona1 = Persona(nombre, edad, sexo, peso, altura)
     val persona2 = Persona(nombre, edad, sexo)
     val persona3 = Persona()
-
-    persona3
+    persona3.apply {
+        this.nombre = nombre
+        this.edad = edad
+        this.sexo = sexo
+        this.peso = peso
+        this.altura = altura
+    }
 
     println(pesoIdeal(persona1.calcularIMC()))
     println(pesoIdeal(persona2.calcularIMC()))
