@@ -70,7 +70,8 @@ class Persona() {
 
     private fun generaDNI(): String {
         var param = ""
-        repeat(8) { param += (0..9).random() }
+        param += (1..9).random()
+        repeat(7) { param += (0..9).random() }
         param += ('A'..'Z').random()
 
         return param
